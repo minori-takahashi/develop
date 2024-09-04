@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quill Table Module Example</title>
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+</head>
+
+<body>
+  <h1>Quill Table Module Example</h1>
+
+  <div id="editor-container"></div>
+  <button id="insert-table">Insert Table</button>
+
+  <script>
+    // Initialize Quill editor
+    var quill = new Quill('#editor-container', {
+      theme: 'snow',
+      modules: {
+        table: true,  // Enable table module
+        toolbar: [
+          ['bold', 'italic', 'underline', 'strike'],
+          ['blockquote', 'code-block'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          [{ indent: '-1' }, { indent: '+1' }],
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          [{ color: [] }, { background: [] }],
+          ['clean'],
+          ['table']  // Add table button to toolbar
+        ]
+      }
+    });
+
+    // Register quill-table-module
+    Quill.register('modules/table', quillTable.TableModule);
+
+    // Button to insert a table
+    document.getElementById('insert-table').addEventListener('click', function () {
+      var tableModule = quill.getModule('table');
+      tableModule.insertTable(3, 3);  // Insert a 3x3 table
+    });
+  </script>
+</body>
+
+</html>
